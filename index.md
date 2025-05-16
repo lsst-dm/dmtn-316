@@ -3,6 +3,17 @@
 ```{abstract}
 Support model for Rubin applications in the US Data Facility.  This includes Rubin application team roles, incident management, problem management, service management, and release management.
 ```
+## Application Roles
+
+Each Rubin application should have the following roles defined to manage and operate the application.  A person can have more than one role and may be condensed.  Below are the roles and responsibilities required for each role.
+
+| Role | Responsibilities |
+| ---- | ---------------- |
+| Application Sponsor | Responsible for assigning resources |
+| Application Owner | Responsible for the overall application functionality, data, and user experience |
+| Database Administrator | Responsible the database’s design, performance, security, and maintenance.  Not required if there is no database |
+| App Infrastructure | Responsible for the infrastructure configuration, deployment, and routine maintenance |
+| Operations Support | Responsible for the support of the application.  Handles alerts, application monitoring, application incident response |
 
 
 ## Application Tiering
