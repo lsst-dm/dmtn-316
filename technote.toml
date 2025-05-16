@@ -13,10 +13,69 @@ license.id = "CC-BY-4.0"
 state = "draft"
 
 [[technote.authors]]
+name.given = "Adam"
+name.family = "Bolton"
+internal_id = "boltana"
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors]]
+name.given = "Sierra"
+name.family = "Villarreal"
+internal_id = ""
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors]]
+name.given = "Hsin-Fang"
+name.family = "Chiang"
+internal_id = "chiangh"
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors]]
+name.given = "Kian-Tat"
+name.family = "Lim"
+internal_id = "limk"
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors]]
+name.given = "Yee-Ting"
+name.family = "Li"
+internal_id = "liy"
+[[technote.authors.affiliations]]
+name = "SLAC National Accelerator Laboratory"
+internal_id = "SLAC"
+address = "2575 Sand Hill Rd., Menlo Park, CA 94025, USA"
+[[technote.authors]]
 name.given = "Dan"
 name.family = "Speck"
 internal_id = "speckd"
-
+[[technote.authors.affiliations]]
+name = "Burwood Group"
+internal_id = "Burwood"
+address = "125 South Wacker Drive Suite 2950, Chicago, IL 60606, USA"
+[[technote.authors]]
+name.given = "Jack"
+name.family = "Borre"
+internal_id = ""
+[[technote.authors.affiliations]]
+name = "Burwood Group"
+internal_id = "Burwood"
+address = "125 South Wacker Drive Suite 2950, Chicago, IL 60606, USA"
+[[technote.authors]]
+name.given = "Dave"
+name.family = "Brock"
+internal_id = ""
 [[technote.authors.affiliations]]
 name = "Burwood Group"
 internal_id = "Burwood"
