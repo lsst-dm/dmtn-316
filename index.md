@@ -15,7 +15,6 @@ Each Rubin application should have the following roles defined to manage and ope
 | App Infrastructure | Responsible for the infrastructure configuration, deployment, and routine maintenance |
 | Operations Support | Responsible for the support of the application.  Handles alerts, application monitoring, application incident response |
 
-
 ## Application Tiering
 
 Application tiering is needed to align the operations model to supporting key Rubin processes and capabilities.  This will be used as decision support for the following type of scenarios:
@@ -31,5 +30,14 @@ Below are the proposed application criticality levels.
 | Critical | Applications that are essential for day to day operations, but not as crucial as mission critical | Can cause significant delays, disruptions, or reduce productivity | ConsDB, Rubin Science Platform Nublado |
 | Operational | Applications that support science functions, but are not considered essential for the immediate functioning of work | May cause disruptions, but not major ones |  Exposurelog, RubinTV, LFA |
 
+## Reporting Incidents
 
-See the [Documenteer documentation](https://documenteer.lsst.io/technotes/index.html) for tips on how to write and configure your new technote.
+Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Threads should be used to organize the discussion of individual issues.
+
+| Slack Channel | Purpose | Responsible for Monitoring |
+| ------------- | ------- | -------------------------- |
+| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | |
+| usdf-support | USDF user support channel. Intended for issues by end users  | |
+| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | |
+| usdf-rsp-support | USDF Rubin Science Platform support | |
+
