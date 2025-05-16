@@ -15,6 +15,16 @@ Each Rubin application should have the following roles defined to manage and ope
 | App Infrastructure | Responsible for the infrastructure configuration, deployment, and routine maintenance |
 | Operations Support | Responsible for the support of the application.  Handles alerts, application monitoring, application incident response |
 
+## SLAC and Rubin Team Infrastructure Roles
+
+Below are the roels and responsibilities for the SLAC and Rubin Infrastructure teams.
+
+| Role | Responsibilities |
+| ---- | ---------------- |
+| Infrastructure Services Support (Physical) | Responsible for physical datacenter, servers, storage, and networking.  This includes Weka and Ceph. |
+| Applications and Users (Virtual) | Responsible for the virtual infrastructure, Kubernetes cluster, vClusters and Kubernetes Weka Storage.  The DBA is on this team and is responsible for Butler and providing subject matter expertise to help the App DBAs. |
+| Astro Domain / Rubin Specific | Understanding Science Operations, Teams, and Roles.  They may also be application owners. |
+
 ## Application Tiering
 
 Application tiering is needed to align the operations model to supporting key Rubin processes and capabilities.  This will be used as decision support for the following type of scenarios:
