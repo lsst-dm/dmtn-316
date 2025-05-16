@@ -3,6 +3,16 @@
 ```{abstract}
 Support model for Rubin applications in the US Data Facility.  This includes Rubin application team roles, incident management, problem management, service management, and release management.
 ```
+
+## Problem Addressed
+
+A structured operating model is critical for ensuring the availability, reliability, and security of the Rubin Applications. By implementing standardized processes, roles and communication, USDF will minimize downtime, and optimize resource utilization.
+
+Specifically the Rubin Application Operations Support Model is intended to:
+* Provide role clarity
+* Standardize processes to streamline work
+* Improve ability to respond to issues
+
 ## Application Roles
 
 Each Rubin application should have the following roles defined to manage and operate the application.  A person can have more than one role and may be condensed.  Below are the roles and responsibilities required for each role.
@@ -17,7 +27,7 @@ Each Rubin application should have the following roles defined to manage and ope
 
 ## SLAC and Rubin Team Infrastructure Roles
 
-Below are the roels and responsibilities for the SLAC and Rubin Infrastructure teams.
+Below are the roles and responsibilities for the SLAC and Rubin Infrastructure teams.
 
 | Role | Responsibilities |
 | ---- | ---------------- |
@@ -36,7 +46,7 @@ Below are the proposed application criticality levels.
 
 | Tier | Definition | Impact of Failure | Examples |
 | ---- | ---------- | ----------------- | -------- |
-| Mission Critical | Most important application. Essential for success of Rubin | Required process will not run | Emabrgo Butler, Prompt Processing, PanDa, Sasquatch |
+| Mission Critical | Most important application. Essential for success of Rubin | Required process will not run | Embargo Butler, Prompt Processing, PanDa, Sasquatch |
 | Critical | Applications that are essential for day to day operations, but not as crucial as mission critical | Can cause significant delays, disruptions, or reduce productivity | ConsDB, Rubin Science Platform Nublado |
 | Operational | Applications that support science functions, but are not considered essential for the immediate functioning of work | May cause disruptions, but not major ones |  Exposurelog, RubinTV, LFA |
 
@@ -53,3 +63,4 @@ Slack channels in the Rubin Observatory Slack instance are used to report incide
 | usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | |
 | usdf-rsp-support | USDF Rubin Science Platform support | |
 
+To monitor the Slack channels a 
