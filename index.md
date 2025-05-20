@@ -42,7 +42,7 @@ Below are the roles and responsibilities for the SLAC and Rubin Infrastructure t
 Application tiering is needed to align the operations model to supporting key Rubin processes and capabilities.  This will be used as decision support for the following type of scenarios:
 * When there are multiple issues occurring and the team is constrained on what they can work.  Higher level application tier applications will be prioritized.
 * When there is a Kubernetes node hardware failure and there are limited resources to run everything
-* During disaster recovery to prioritize which application needs to focuse on first to restore service
+* During disaster recovery to prioritize which application to on first to restore service
 
 Below are the proposed application criticality levels.
 
@@ -76,15 +76,11 @@ The USDF Grafana is used for monitoring and alerts.  Prometheus is the main sour
 
 Below are the requirements for monitoring and alerting.
 
-* Application issues should be identified proactively and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts if there is missing coverage.
+* Alerts will be created for application errors and faults.  Application issues should be identified proactively and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts if there is missing coverage.
+* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of Operations Support to monitor and respond to these alerts.
 * Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
 * Sensitive data such as passwords should not be logged.
 * A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.
-
-### Monitoring and Alerting Design
-
-* Alerts will be created for known application
-* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of Operations Support to monitor and respond to these alerts.
 * Tags for each application domain will be added to Grafana.  A red/yellow/green stoplight dashboard will be created to show alerts by application family to provide a summary view of USDF alerts.
 * Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
 * Squadcast will be used to provide alert management and route alerts.
@@ -92,6 +88,8 @@ Below are the requirements for monitoring and alerting.
 ### Operations Checklist
 
 ## Incident Management
+
+### Incident Management Process
 
 ### Reporting Incidents
 
@@ -111,5 +109,9 @@ To avoid the same person being consistently asked to help even when they are not
 ## Problem Management
 
 ## Service Management
+
+### Maintenance Windows
+
+Patch Thursday will be used to perform upgrades and patches.
 
 ## Release Management
