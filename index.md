@@ -15,6 +15,8 @@ Specifically the Rubin Application Operations Support Model is intended to:
 
 ## Application Support Model
 
+Below are details on the application support model for Rubin applications.  This model is used to define the roles, responsibilites, and priorities for support.
+
 ### Application Roles
 
 Each Rubin application should have the following roles defined to manage and operate the application.  A person can have more than one role and may be condensed.  Below are the roles and responsibilities required for each role.
@@ -40,9 +42,9 @@ Below are the roles and responsibilities for the SLAC and Rubin Infrastructure t
 ### Application Tiering
 
 Application tiering is needed to align the operations model to supporting key Rubin processes and capabilities.  This will be used as decision support for the following type of scenarios:
-* When there are multiple issues occurring and the team is constrained on what they can work.  Higher level application tier applications will be prioritized.
-* When there is a Kubernetes node hardware failure and there are limited resources to run everything
-* During disaster recovery to prioritize which application to on first to restore service
+* When there are multiple issues occurring and the team is constrained on what they can work on.  Mission Critical applications will be prioritized over critical and operational tier applications.
+* When there are hardware issues and there are limited resources to run everything
+* During disaster recovery to prioritize which applications to restore
 
 Below are the proposed application criticality levels.
 
@@ -56,36 +58,65 @@ The tiers for applications will be identified as part of the operations checklis
 
 ### Application Domains
 
-There are over 50 Rubin applications installed at the USDF and number is growing.  An approach is needed to organize applications to define high level ownership and reduce complexity.  The below application domains are proposed to organize Rubin Applications.
+There are over 50 Rubin applications installed at the USDF and the number is growing.  An approach is needed to organize applications to define high level ownership and reduce complexity.  The below application domains are proposed to organize Rubin Applications.
 
 | Application Domain | Description | Example Applications | Owner |
 | ------------------ | ----------- | -------------------- | ------|
 | Alert Production | Responsible for creating and distributing alerts | Prompt Processing, Alert Stream Broker | Alert Production Team |
-| Build Engineering | Building of the shared stack | Jenkins | Building Engineering |
+| Build Engineering | Building of the shared stack | Jenkins | Build Engineering |
 | Data Release Production | Responsible for the processing and creation of data releases | PanDA, Rucio |
 | Data Transfer | Respsnsible for the transfer of files from the Summit to USDF and Data Facilities | Embargo Ingest, Rucio | |
 | Data Wrangling | Data management and abstration | Embargo Butler, Main Butler | |
 | Rubin Science Platform at USDF | Portal Notebooks, Notebooks, and Image API services used at the USDF | |
 | QA | Validation and Verification of Camera Options | Exposurelog, Consdb, Rubin TV | |
 
+### Operations Checklist
+
+A checklist is developed to review and validate that an application is ready for operations.  This checklist will be completed by each application team.   Below is a summary of what is included in the Operations Checklist.
+
+* Application Support Model
+  * Application roles, tier, production hours, and maintenance hours defined.
+  * Review of staffing levels and sufficient staff to run and support application
+  * Runbook completed.  This includes common operational procedures, infrastructure dependencies, and other Rubin application dependencies
+  * Concerns of open issues remediated
+* Release Management
+  * Release management and application deployment process defined.  Dev and Production environments deployed.
+  * Code in Rubin or SLAC GitHub.  Container images stored in LSST GitHub packages.
+  * Upgrade process defined for any Kubernetes Operators in use
+* Infrastructure
+  * High availability configuration
+  * IP Address allocated from `sdf-ingest` pool.  No hard coded IP addresses and use of DNS entries.
+  * Unused configuration removed
+  * Kubernetes Resource requests implemented
+* Database 
+ * Partioning implemented for databases that will grow larger than supported by Postgres
+ * Retries enabled for database connections
+ * Database backups are running
+ * Postgres Poolers created and in use.  Idle timeout set for Pooler.
+* Security
+  * Any SLAC Cyber review and/or exceptions done
+  * All secret in Vault.
+  * Administrative access to the application using SLAC credentials
+  * Embargo annotations and affinity rules deployed if applicable
+  * Patch process defined to update application libraries in the the Runbook
+
+
 ## Monitoring and Alerting
 
 The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
 
-### Monitoring and Alerting Requirements.
+### Monitoring and Alerting Requirements
 
 Below are the requirements for monitoring and alerting.
 
-* Alerts will be created for application errors and faults.  Application issues should be identified proactively and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts if there is missing coverage.
-* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of Operations Support to monitor and respond to these alerts.
+* Alerts will be created for application errors and performance metrics.  Ideally application issues should be identified proactively by alerts and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts when there is missing coverage.
+* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of the Operations Support role in each team to monitor and respond to these alerts.
 * Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
-* Sensitive data such as passwords should not be logged.
-* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.
-* Tags for each application domain will be added to Grafana.  A red/yellow/green stoplight dashboard will be created to show alerts by application family to provide a summary view of USDF alerts.
+* Sensitive data such as passwords or secrets should not be logged.
+* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to faciliate the aggregation of alerts into this dashboard.
 * Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
-* Squadcast will be used to provide alert management and route alerts.
+* Squadcast will be used to provide alert management and route alerts.   <- Is there licensing for this?
 
-### Operations Checklist
 
 ## Incident Management
 
