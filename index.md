@@ -13,7 +13,7 @@ Specifically the Rubin Application Operations Support Model is intended to:
 * Standardize processes to streamline work
 * Improve ability to respond to issues
 
-### Application Support Model
+## Application Support Model
 
 ### Application Roles
 
@@ -53,6 +53,20 @@ Below are the proposed application criticality levels.
 | Operational | Applications that support science functions, but are not considered essential for the immediate functioning of work | May cause disruptions, but not major ones |  Exposurelog, RubinTV, LFA |
 
 The tiers for applications will be identified as part of the operations checklist activities.  The application tiering can change over time and will change for some applications after commissioning.
+
+### Application Domains
+
+There are over 50 Rubin applications installed at the USDF and number is growing.  An approach is needed to organize applications to define high level ownership and reduce complexity.  The below application domains are proposed to organize Rubin Applications.
+
+| Application Domain | Description | Example Applications | Owner |
+| ------------------ | ----------- | -------------------- | ------|
+| Alert Production | Responsible for creating and distributing alerts | Prompt Processing, Alert Stream Broker | Alert Production Team |
+| Build Engineering | Building of the shared stack | Jenkins | Building Engineering |
+| Data Release Production | Responsible for the processing and creation of data releases | PanDA, Rucio |
+| Data Transfer | Respsnsible for the transfer of files from the Summit to USDF and Data Facilities | Embargo Ingest, Rucio | |
+| Data Wrangling | Data management and abstration | Embargo Butler, Main Butler | |
+| Rubin Science Platform at USDF | Portal Notebooks, Notebooks, and Image API services used at the USDF | |
+| QA | Validation and Verification of Camera Options | Exposurelog, Consdb, Rubin TV | |
 
 ## Monitoring and Alerting
 
