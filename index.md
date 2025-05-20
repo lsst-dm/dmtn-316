@@ -54,11 +54,11 @@ Below are the proposed application criticality levels.
 
 The tiers for applications will be identified as part of the operations checklist activities.  The application tiering can change over time and will change for some applications after commissioning.
 
-### Monitoring and Alerting
+## Monitoring and Alerting
 
 The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
 
-## Monitoring and Alerting Requirements.
+### Monitoring and Alerting Requirements.
 
 Below are the requirements for monitoring and alerting.
 
@@ -67,7 +67,7 @@ Below are the requirements for monitoring and alerting.
 * Sensitive data such as passwords should not be logged.
 * A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.
 
-## Monitoring and Alerting Design
+### Monitoring and Alerting Design
 
 * Alerts will be created for known application
 * Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of Operations Support to monitor and respond to these alerts.
@@ -83,14 +83,16 @@ Below are the requirements for monitoring and alerting.
 
 Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Threads should be used to organize the discussion of individual issues.
 
-| Slack Channel | Purpose | Responsible for Monitoring |
+| Slack Channel | Purpose | Slack User Group Handle |
 | ------------- | ------- | -------------------------- |
-| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | |
-| usdf-support | USDF user support channel. Intended for issues by end users  | |
-| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | |
-| usdf-rsp-support | USDF Rubin Science Platform support | |
+| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | usdf-on-sky-help |
+| usdf-support | USDF user support channel. Intended for issues by end users  | usdf-help |
+| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | usdf-infra-help |
+| usdf-rsp-support | USDF Rubin Science Platform support | usdf-rsp-help |
 
-To monitor the Slack channels a
+An on call rotation will be created to monitor the above Slack channels during daytime working hours.  Note that Slack channels will not be monitored during nightime when there is observing because SLAC is not staffed for this.
+
+To avoid the same person being consistently asked to help even when they are not on call the Slack user group feature will be used to mention for assistance.  The user group handles are included in the above table.  How to setup Slack user groups is discussed [here](https://slack.com/help/articles/212906697-Create-a-user-group#:~:text=Create%20user%20groups%20to%20notify,notify%20everyone%20in%20the%20group.)
 
 ## Problem Management
 
