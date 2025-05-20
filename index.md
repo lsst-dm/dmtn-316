@@ -54,7 +54,26 @@ Below are the proposed application criticality levels.
 
 The tiers for applications will be identified as part of the operations checklist activities.  The application tiering can change over time and will change for some applications after commissioning.
 
-### Monitoring and Alerting Requirements
+### Monitoring and Alerting
+
+The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
+
+## Monitoring and Alerting Requirements.
+
+Below are the requirements for monitoring and alerting.
+
+* Application issues should be identified proactively and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts if there is missing coverage.
+* Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
+* Sensitive data such as passwords should not be logged.
+* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.
+
+## Monitoring and Alerting Design
+
+* Alerts will be created for known application
+* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of Operations Support to monitor and respond to these alerts.
+* Tags for each application domain will be added to Grafana.  A red/yellow/green stoplight dashboard will be created to show alerts by application family to provide a summary view of USDF alerts.
+* Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
+* Squadcast will be used to provide alert management and route alerts.
 
 ### Operations Checklist
 
