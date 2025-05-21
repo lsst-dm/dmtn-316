@@ -152,16 +152,31 @@ Below is the incident management process for application issues.
 ```mermaid
 flowchart LR;
     A[Slack Message]-->C[Determine Impact];
-    B[Alert]-->C[Determine Impact and Open Incident in Jira];
-    C --> D[Communicate Issue in Slack];
-    D --> E[Identify Fix];
-    E -- Requires Approval --> F[Obtain Approval.  Then apply fix];
-    E -- Does Not Require Approval --> G[Apply fix];
-    F --> H[Coordinate Post Ops review and RCA];
-    G --> H[Coordinate Post Ops review and RCA];
+    B[Alert]-->C["`Determine Impact
+    Open Incident in Jira
+    Communicate Issue in Slack`"];
+    C --> D[Identify Fix];
+    D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
+    D -- Does Not Require Approval --> F[Apply fix];
+    E --> G[Coordinate Post Ops review and RCA];
+    F --> G[Coordinate Post Ops review and RCA];
     
 ```
 
+Below is the incident management process for infrastructure issues.
+
+```mermaid
+flowchart LR;
+    A[Slack Message]-->C[Determine Impact];
+    B[Alert]-->C["`Determine Impact
+    Open Incident in SNOW
+    Communicate Issue in Slack`"];
+    C --> D[Identify Fix];
+    D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
+    D -- Does Not Require Approval --> F[Apply fix];
+    E --> G[Coordinate Post Ops review and RCA];
+    F --> G[Coordinate Post Ops review and RCA];
+```
 
 ### Reporting Incidents
 
