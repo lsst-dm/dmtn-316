@@ -117,10 +117,51 @@ Below are the requirements for monitoring and alerting.
 * Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
 * Squadcast will be used to provide alert management and route alerts.   <- Is there licensing for this?
 
-
 ## Incident Management
 
+Below details the proposed incident management process.  Current incident management processes uses Slack channels and a daily standup.  These recommendations are to enhance current processes.
+
+Rubin uses the cloud version of Jira to manage requests, development, and project work.  Jira has Service Management template projects available for service management that include incident and problem management.  This will enable a consolidated view of incidents and tracking of response and resolution times. 
+
+### Incident Impact
+
+Below are the impact levels that will be used to prioritize incident response.  High/Medium/Low were selected because these levels are already configured in the SLAC Service Now and impact levels are not defined in Rubin Jira.
+
+| Impact Level | Description   | Response Time | Resolution Targets |
+| ------------ | ------------- | ------------- | ------------------ |
+| High | Blocks production for Mission Critical application | ASAP during working hours | ASAP, requires working until fixed|
+| Medium | Significant impact on operations; work can continue with limitations. | Rapid triage (within 4 hours) | May begin at start of next working day |
+| Low | Minor functionality issues or performance degradation. | within 1 day | within 3 days |
+
+
 ### Incident Management Process
+
+Below is the incident management process for incidents when it is unknown if it is an application or infrastructure issue.
+
+```mermaid
+flowchart LR;
+    A[Slack Message]-->C[Diagnose Issue. Determine Impact];
+    B[Alert]-->C[Diagnose Issue. Determine Impact];
+    C -- Infrastructure Issue --> D[Infrastructure Incident Management Process];
+    C -- Issue with other Rubin App --> E[Contact App Operations Support via Slack]
+    C -- Application Issue --> F[Application Incident Response Process];
+```
+
+Below is the incident management process for application issues.
+
+```mermaid
+flowchart LR;
+    A[Slack Message]-->C[Determine Impact];
+    B[Alert]-->C[Determine Impact and Open Incident in Jira];
+    C --> D[Communicate Issue in Slack];
+    D --> E[Identify Fix];
+    E -- Requires Approval --> F[Obtain Approval.  Then apply fix];
+    E -- Does Not Require Approval --> G[Apply fix];
+    F --> H[Coordinate Post Ops review and RCA];
+    G --> H[Coordinate Post Ops review and RCA];
+    
+```
+
 
 ### Reporting Incidents
 
