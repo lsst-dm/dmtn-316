@@ -13,6 +13,53 @@ Specifically the Rubin Application Operations Support Model is intended to:
 * Standardize processes to streamline work
 * Improve ability to respond to issues
 
+
+## Support Responsibilities
+
+SLAC is responsible for supporting the following systems:
+* Kubernetes and vClusters
+* Ingress
+* Certificate Manager
+* Servers
+* Storage.  This includes Ceph and Weka
+* Network
+* DNS
+* Authentication
+
+Rubin is responsible for the supporting the following:
+* Applications
+* MariaDB and MySQL Databases
+* SSL Certificates
+* Cassandra
+
+There is an overlap with the following.
+* Postgres Databases
+
+The following areas need to be resolved.
+* Phalanx and ArgoCD
+
+|      | Application Team | | | |                             | SLAC     |          |          |
+| ---- | --------- | --------- | -------- | --- | ----------- | -------- | -------- | -------- |
+| Task | Owner | Developer | App Infr | DBA | Ops Support | SLAC Ops | SLAC DBA | End User |
+| ---- | ----- | --------- | -------- | --- | ----------- | -------- | ---------| ---------|
+| App Deployment | A | R | R | R | R | I |  | | I |
+| App Monitoring | | C | C | C | R/A | C | C |  |
+| App Incident Management | C | C | C | C | A/R | C | C | I |
+| App Incident Escalation | C |  |  |  | A/R |  |  |  |
+| Database Schema Design | I | C | | R/A | | | C | |
+| Database Capacity Management | I | C | | R/A | | | C | |
+| Database Backup & Recovery | I | | | R/A| | | C | |
+
+
+|      | Application Team | | | |                             | SLAC     |          |          |
+| ---- | --------- | --------- | -------- | --- | ----------- | -------- | -------- | -------- |
+| Task | Owner | Developer | App Infr | DBA | Ops Support | SLAC Ops | SLAC DBA | End User |
+| ---- | ----- | --------- | -------- | --- | ----------- | -------- | ---------| ---------|
+| Infrastructure Monitoring |  |  |  |  | I | R/A |  |  | 
+| Infrastructure Incident Management  |  |  |  |  | I | R/A |  |  | 
+| Incident escalation  |  |  |  |  | I | R/A |  |  | 
+
+
 ## Application Support Model
 
 Below are details on the application support model for Rubin applications.  This model is used to define the roles, responsibilites, and priorities for support.
@@ -195,7 +242,26 @@ To avoid the same person being consistently asked to help even when they are not
 
 ## Problem Management
 
+Slack bot
+
+## Change Management
+
+The following types of changes will require approval before making changes.
+
+| Change Type | Approver |
+| ----------- | -------- |
+| Embargo Storage | 
+
+Cap like meeting.  Sign off.
+
+Conflicting changes.
+
+Visibility.
+
+
 ## Service Management
+
+Service Owners and Process Owners.
 
 ### Maintenance Windows
 
