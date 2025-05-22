@@ -242,29 +242,15 @@ To avoid the same person being consistently asked to help even when they are not
 
 ## Problem Management
 
-Slack bot
 
 ## Change Management
 
-The following types of changes will require approval before making changes.
+There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.
 
-| Change Type | Approver |
-| ----------- | -------- |
-| Embargo Storage | 
+JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  It will require a change in workflow, but will reduce the manual questions that arise today about what changed and when.
 
-Cap like meeting.  Sign off.
-
-Conflicting changes.
-
-Visibility.
-
+Patch Thursday will be used to perform upgrades and patches. <-- Need to discuss is there is an allowed downtime window.
 
 ## Service Management
-
-Service Owners and Process Owners.
-
-### Maintenance Windows
-
-Patch Thursday will be used to perform upgrades and patches.
 
 ## Release Management
