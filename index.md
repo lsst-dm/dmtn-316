@@ -12,7 +12,8 @@ Specifically the Rubin Application Operations Support Model is intended to:
 * Provide role clarity
 * Standardize processes to streamline work
 * Improve ability to respond to issues
-
+* Provide visibility into changes
+* Reduce downtime
 
 ## Support Responsibilities
 
@@ -147,7 +148,6 @@ A checklist is developed to review and validate that an application is ready for
   * Embargo annotations and affinity rules deployed if applicable
   * Patch process defined to update application libraries in the the Runbook
 
-
 ## Monitoring and Alerting
 
 The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
@@ -163,6 +163,10 @@ Below are the requirements for monitoring and alerting.
 * A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to faciliate the aggregation of alerts into this dashboard.
 * Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
 * Squadcast will be used to provide alert management and route alerts.   <- Is there licensing for this?
+
+
+## Service Managment
+
 
 ## Incident Management
 
@@ -242,15 +246,33 @@ To avoid the same person being consistently asked to help even when they are not
 
 ## Problem Management
 
+## Release Management
 
 ## Change Management
 
-There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.
+There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.  The CAB should include membership from the Rubin Application Grouping Owners (or delegates) and USDF Infrastructure teams.
 
 JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  It will require a change in workflow, but will reduce the manual questions that arise today about what changed and when.
 
 Patch Thursday will be used to perform upgrades and patches. <-- Need to discuss is there is an allowed downtime window.
 
-## Service Management
+## Next Steps
 
-## Release Management
+Below is a summary of the recommended next steps to implement the model.
+1. Implement Incident Management Process
+    * Assign and activate on call rotation
+    * Create Slack groups
+    * Create Service Management board in Jira
+    * Create Service Management board in Service Now
+    * Train team on responsibilities
+    * Implement process
+1. Create and add content to Data Operations Support Site
+1. Application Roles
+    * Define Application Sponsors and Owners
+    * Conduct Operations Checklist work for Applications
+        * Assign remaining application roles
+1. Implement Change Management Process
+    * Create Change Advisory Board and assign members
+    * Setup Jira for Change Management
+    * Train team on responsibilities
+    * Implement process
