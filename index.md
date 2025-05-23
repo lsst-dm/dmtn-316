@@ -1,43 +1,36 @@
 # USDF Rubin Application Operations Support Model
 
 ```{abstract}
-Support model for Rubin applications in the US Data Facility.  This includes Rubin application team roles, incident management, problem management, service management, and release management.
-```
+Rubin depends on a large array of applications, services, and databases.  Collectively these will be referred to as services.  Many of these services are hosted at the United States Data Facility (USDF) run by the SLAC National Accelerator Laboratory.  The USDF is not staffed to to take over all operational responsibilities for all services.  The USDF must rely on service owners/operators for ongoing engagement during operations.  
 
-## Problem Addressed
+Rubin and USDF need a standardized and sustainable Concept of Operations (ConOps) framework for developing, deploying, and supporting these services during operations.  The goals of this are to:
 
-A structured operating model is critical for ensuring the availability, reliability, and security of the Rubin Applications. By implementing standardized processes, roles and communication, USDF will minimize downtime, and optimize resource utilization.
-
-Specifically the Rubin Application Operations Support Model is intended to:
-* Provide role clarity
-* Standardize processes to streamline work
+* Make the process straightforward for service owner/operators
+* Make the support load manageable for the USDF infrastructure team
 * Improve ability to respond to issues
 * Provide visibility into changes
-* Reduce downtime
+* Enable better interaction with hardware planning, SLAC Cybersecurity, etc.
 
-## Support Responsibilities
+This document introduces the ConOps for the Rubin applications at USDF.  This includes the Rubin and USDF roles, Service Management. This document does not detail the overall operations for the US DAC, Long Haul Network, or Summit.
+```
 
-SLAC is responsible for supporting the following systems:
-* Kubernetes and vClusters
-* Ingress
-* Certificate Manager
-* Servers
-* Storage.  This includes Ceph and Weka
-* Network
-* DNS
-* Authentication
+## Separation of Responsibilities
 
-Rubin is responsible for the supporting the following:
-* Applications
-* MariaDB and MySQL Databases
-* SSL Certificates
-* Cassandra
+Service Owners are responsible for operational state of the the deployed application.  Service Owners will ensure runbooks and documentation is developed.  Operational Support roles will be created in the team to respond to stakeholder queries via Slack and alert USDF/SDF infrastructure staff of issues and needs.
 
-There is an overlap with the following.
-* Postgres Databases
+USDF Infrastructure staff is responsible for documenting a standard menu of services.  Currently includes Kubernetes, Storage, DNS, Network, Monitoring, Logging, and Databases.  The USDF will proactively monitoring infrastructure status and investigate issues.  They will respond to infrastructure issues and needs of the Service owners.
 
-The following areas need to be resolved.
-* Phalanx and ArgoCD
+There is an overlap of responsibilities with Rubin Science Platform, QServ, Cassandra, and Postgres. The below tables summarizes the shared responsibilities.
+
+| Service | Rubin | USDF | 
+| ---- | ----- | ---- |
+| Cassandra | | |
+| Phalanx/ArgoCD | | |
+| Postgres| Implementation and optimization of data model | Installation, upgrades, and monitoring.  Consult on database performance issues.  |
+| Rubin Science Platform | |
+| Qserv | | |
+
+Below is a RACI to summarize the responsibilities.
 
 |      | Application Team | | | |                             | SLAC     |          |          |
 | ---- | --------- | --------- | -------- | --- | ----------- | -------- | -------- | -------- |
@@ -63,7 +56,7 @@ The following areas need to be resolved.
 
 ## Application Support Model
 
-Below are details on the application support model for Rubin applications.  This model is used to define the roles, responsibilites, and priorities for support.
+Below are details on the application support model for Rubin applications.  This model is used to define the roles, responsibilities, and priorities for support.
 
 ### Application Roles
 
@@ -104,17 +97,17 @@ Below are the proposed application criticality levels.
 
 The tiers for applications will be identified as part of the operations checklist activities.  The application tiering can change over time and will change for some applications after commissioning.
 
-### Application Domains
+### Application Groups
 
-There are over 50 Rubin applications installed at the USDF and the number is growing.  An approach is needed to organize applications to define high level ownership and reduce complexity.  The below application domains are proposed to organize Rubin Applications.
+There are over 50 Rubin applications installed at the USDF and the number is growing.  An approach is needed to organize applications to define high level ownership and reduce complexity.  The below application groups are proposed to organize Rubin Applications.
 
-| Application Domain | Description | Example Applications | Owner |
+| Application Group | Description | Example Applications | Owner |
 | ------------------ | ----------- | -------------------- | ------|
 | Alert Production | Responsible for creating and distributing alerts | Prompt Processing, Alert Stream Broker | Alert Production Team |
 | Build Engineering | Building of the shared stack | Jenkins | Build Engineering |
 | Data Release Production | Responsible for the processing and creation of data releases | PanDA, Rucio |
-| Data Transfer | Respsnsible for the transfer of files from the Summit to USDF and Data Facilities | Embargo Ingest, Rucio | |
-| Data Wrangling | Data management and abstration | Embargo Butler, Main Butler | |
+| Data Transfer | Responsible for the transfer of files from the Summit to USDF and Data Facilities | Embargo Ingest, Rucio | |
+| Data Wrangling | Data management and abstraction | Embargo Butler, Main Butler | |
 | Rubin Science Platform at USDF | Portal Notebooks, Notebooks, and Image API services used at the USDF | |
 | QA | Validation and Verification of Camera Options | Exposurelog, Consdb, Rubin TV | |
 
@@ -137,7 +130,7 @@ A checklist is developed to review and validate that an application is ready for
   * Unused configuration removed
   * Kubernetes Resource requests implemented
 * Database 
- * Partioning implemented for databases that will grow larger than supported by Postgres
+ * Partitioning implemented for databases that will grow larger than supported by Postgres
  * Retries enabled for database connections
  * Database backups are running
  * Postgres Poolers created and in use.  Idle timeout set for Pooler.
@@ -160,17 +153,33 @@ Below are the requirements for monitoring and alerting.
 * Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of the Operations Support role in each team to monitor and respond to these alerts.
 * Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
 * Sensitive data such as passwords or secrets should not be logged.
-* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to faciliate the aggregation of alerts into this dashboard.
-* Dashboads will be created for each application domain to provide a summary view of health, performance, and issues.
+* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to facilitate the aggregation of alerts into this dashboard.
+* Dashboards will be created for each application domain to provide a summary view of health, performance, and issues.
 * Squadcast will be used to provide alert management and route alerts.   <- Is there licensing for this?
 
 
 ## Service Managment
 
+<include ITIL def>
+
+Below are constraints factored into the model.
+* Rubin works in Jira and SLAC works in Service Now.  There are no current plans to integrate the ticketing systems.
+* Rubin Data Management and SLAC do not provide 24x7 staffing coverage.
 
 ## Incident Management
 
-Below details the proposed incident management process.  Current incident management processes uses Slack channels and a daily standup.  These recommendations are to enhance current processes.
+
+
+Incident Manager is responsible for getting the appropriate people on the call – need to have documented escalation paths as that’s typically the hardest part.  Sometimes people are hard to get ahold of…
+
+
+The Incident Manager should, however, be well versed in Problem Management to help identify and capture any data that will later be helpful for root cause determination.  For example, “let’s capture and save off all the error logs” or “let’s run a quick test” if the knowledge can only be gained while the issue is taking place.   
+
+Below details the proposed incident management process.  Current incident management processes uses Slack channels and a daily standup.  These recommendations are to enhance current processes.  The point of Incident Management is get things back to operational as quickly as possible.  It is not to determine root cause.  Root cause is for Problem Management.
+
+
+
+Incident resolution should capture what knowledge article drive the solution and use that to score the articles per incident type so people know what worked / recommended actions are prioritized versus existing only in Slack channels, tickets, or in someone's head.
 
 Rubin uses the cloud version of Jira to manage requests, development, and project work.  Jira has Service Management template projects available for service management that include incident and problem management.  This will enable a consolidated view of incidents and tracking of response and resolution times. 
 
@@ -188,6 +197,8 @@ Below are the impact levels that will be used to prioritize incident response.  
 ### Incident Management Process
 
 Below is the incident management process for incidents when it is unknown if it is an application or infrastructure issue.
+
+Initial incident triage to determine who needs to be involved needs to be based not just on which area caused the incident, but which teams need to be involved to fully recover from the Incident.
 
 ```mermaid
 flowchart LR;
@@ -209,9 +220,6 @@ flowchart LR;
     C --> D[Identify Fix];
     D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
     D -- Does Not Require Approval --> F[Apply fix];
-    E --> G[Coordinate Post Ops review and RCA];
-    F --> G[Coordinate Post Ops review and RCA];
-    
 ```
 
 Below is the incident management process for infrastructure issues.
@@ -225,8 +233,8 @@ flowchart LR;
     C --> D[Identify Fix];
     D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
     D -- Does Not Require Approval --> F[Apply fix];
-    E --> G[Coordinate Post Ops review and RCA];
-    F --> G[Coordinate Post Ops review and RCA];
+    E --> G[Work with Applications Teams to Ensure Applications are Working]
+    F --> G[Work with Applications Teams to Ensure Applications are Working]
 ```
 
 ### Reporting Incidents
