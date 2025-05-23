@@ -30,29 +30,6 @@ There is an overlap of responsibilities with Rubin Science Platform, QServ, Cass
 | Rubin Science Platform | |
 | Qserv | | |
 
-Below is a RACI to summarize the responsibilities.
-
-|      | Application Team | | | |                             | SLAC     |          |          |
-| ---- | --------- | --------- | -------- | --- | ----------- | -------- | -------- | -------- |
-| Task | Owner | Developer | App Infr | DBA | Ops Support | SLAC Ops | SLAC DBA | End User |
-| ---- | ----- | --------- | -------- | --- | ----------- | -------- | ---------| ---------|
-| App Deployment | A | R | R | R | R | I |  | | I |
-| App Monitoring | | C | C | C | R/A | C | C |  |
-| App Incident Management | C | C | C | C | A/R | C | C | I |
-| App Incident Escalation | C |  |  |  | A/R |  |  |  |
-| Database Schema Design | I | C | | R/A | | | C | |
-| Database Capacity Management | I | C | | R/A | | | C | |
-| Database Backup & Recovery | I | | | R/A| | | C | |
-
-
-|      | Application Team | | | |                             | SLAC     |          |          |
-| ---- | --------- | --------- | -------- | --- | ----------- | -------- | -------- | -------- |
-| Task | Owner | Developer | App Infr | DBA | Ops Support | SLAC Ops | SLAC DBA | End User |
-| ---- | ----- | --------- | -------- | --- | ----------- | -------- | ---------| ---------|
-| Infrastructure Monitoring |  |  |  |  | I | R/A |  |  | 
-| Infrastructure Incident Management  |  |  |  |  | I | R/A |  |  | 
-| Incident escalation  |  |  |  |  | I | R/A |  |  | 
-
 
 ## Application Support Model
 
@@ -107,11 +84,11 @@ There are over 50 Rubin applications installed at the USDF and the number is gro
 | Build Engineering | Building of the shared stack | Jenkins | Build Engineering |
 | Data Release Production | Responsible for the processing and creation of data releases | PanDA, Rucio |
 | Data Transfer | Responsible for the transfer of files from the Summit to USDF and Data Facilities | Embargo Ingest, Rucio | |
-| Data Wrangling | Data management and abstraction | Embargo Butler, Main Butler | |
+| Middleware | Pipelines and data abstraction | Embargo Butler, Main Butler | |
 | Rubin Science Platform at USDF | Portal Notebooks, Notebooks, and Image API services used at the USDF | |
 | QA | Validation and Verification of Camera Options | Exposurelog, Consdb, Rubin TV | |
 
-### Operations Checklist
+### Application Operations Checklist
 
 A checklist is developed to review and validate that an application is ready for operations.  This checklist will be completed by each application team.   Below is a summary of what is included in the Operations Checklist.
 
@@ -141,49 +118,41 @@ A checklist is developed to review and validate that an application is ready for
   * Embargo annotations and affinity rules deployed if applicable
   * Patch process defined to update application libraries in the the Runbook
 
-## Monitoring and Alerting
+## Service Management
 
-The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
+A structured approach is needed to managing the Rubin and USDF Services.  The Information Technology Infrastructure Library (ITIL) is a common framework of best practices for managing and improving IT services.  ITIL is commonly used and platforms like Jira and Service Now are build around some of the ITIL principles.  For example Jira has Service Management template projects available for service management that include incident and problem management.  It is proposed to use some ITIL concepts to structure the Rubin and USDF Support Model.  Not all practices of ITIL are relevant right now and this is not a full ITIL implementation.  The practices recommended for implementation now are Incident Management, Problem Management, Monitoring and Event Management, and Change Management.
 
-### Monitoring and Alerting Requirements
+### Incident Management
 
-Below are the requirements for monitoring and alerting.
+An incident is an unplanned interruption to or a reduction in the quality of an IT service.  It is an event that disrupts or could disrupt operations and requires a response to restore normal operation as quickly as possible.  The point of Incident Management is get things back to operational as quickly as possible.  It is not to determine root cause.  Root cause is for Problem Management.
 
-* Alerts will be created for application errors and performance metrics.  Ideally application issues should be identified proactively by alerts and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts when there is missing coverage.
-* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of the Operations Support role in each team to monitor and respond to these alerts.
-* Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
-* Sensitive data such as passwords or secrets should not be logged.
-* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to facilitate the aggregation of alerts into this dashboard.
-* Dashboards will be created for each application domain to provide a summary view of health, performance, and issues.
-* Squadcast will be used to provide alert management and route alerts.   <- Is there licensing for this?
-
-
-## Service Managment
-
-<include ITIL def>
-
-Below are constraints factored into the model.
-* Rubin works in Jira and SLAC works in Service Now.  There are no current plans to integrate the ticketing systems.
-* Rubin Data Management and SLAC do not provide 24x7 staffing coverage.
-
-## Incident Management
-
-
-
-Incident Manager is responsible for getting the appropriate people on the call – need to have documented escalation paths as that’s typically the hardest part.  Sometimes people are hard to get ahold of…
-
-
-The Incident Manager should, however, be well versed in Problem Management to help identify and capture any data that will later be helpful for root cause determination.  For example, “let’s capture and save off all the error logs” or “let’s run a quick test” if the knowledge can only be gained while the issue is taking place.   
-
-Below details the proposed incident management process.  Current incident management processes uses Slack channels and a daily standup.  These recommendations are to enhance current processes.  The point of Incident Management is get things back to operational as quickly as possible.  It is not to determine root cause.  Root cause is for Problem Management.
-
-
+The following roles are defined for the operating model
+* Incident Reporter: identifies and reports the incident.
+* Incident Coordinator: responsible for managing the incident lifecycle, communication, and coordination of resolution efforts. 
+* Resolution Groups/Individuals: people with the technical expertise to diagnose and fix the incident.
 
 Incident resolution should capture what knowledge article drive the solution and use that to score the articles per incident type so people know what worked / recommended actions are prioritized versus existing only in Slack channels, tickets, or in someone's head.
 
-Rubin uses the cloud version of Jira to manage requests, development, and project work.  Jira has Service Management template projects available for service management that include incident and problem management.  This will enable a consolidated view of incidents and tracking of response and resolution times. 
+Current incident management processes uses Slack channels and a daily standup.  The below sections details the proposed incident management process and these recommendations are to enhance current processes.  
 
-### Incident Impact
+#### Reporting Incidents
+
+Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Threads should be used to organize the discussion of individual issues.
+
+| Slack Channel | Purpose | Slack User Group Handle |
+| ------------- | ------- | -------------------------- |
+| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | usdf-on-sky-help |
+| usdf-support | USDF user support channel. Intended for issues by end users  | usdf-help |
+| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | usdf-infra-help |
+| usdf-rsp-support | USDF Rubin Science Platform support | usdf-rsp-help |
+
+An on call rotation will be created to monitor the above Slack channels during daytime working hours.  Note that Slack channels will not be monitored during nightime when there is observing because SLAC is not staffed for this.
+
+To avoid the same person being consistently asked to help even when they are not on call the Slack user group feature will be used to mention for assistance.  The user group handles are included in the above table.  How to setup Slack user groups is discussed [here](https://slack.com/help/articles/212906697-Create-a-user-group#:~:text=Create%20user%20groups%20to%20notify,notify%20everyone%20in%20the%20group.)
+
+In the event that Slack is down email and Zoom will be used.  Can Squadcast with phone number also be used for this?  <--confirm
+
+#### Incident Impact
 
 Below are the impact levels that will be used to prioritize incident response.  High/Medium/Low were selected because these levels are already configured in the SLAC Service Now and impact levels are not defined in Rubin Jira.
 
@@ -194,7 +163,7 @@ Below are the impact levels that will be used to prioritize incident response.  
 | Low | Minor functionality issues or performance degradation. | within 1 day | within 3 days |
 
 
-### Incident Management Process
+#### Incident Management Process
 
 Below is the incident management process for incidents when it is unknown if it is an application or infrastructure issue.
 
@@ -237,28 +206,30 @@ flowchart LR;
     F --> G[Work with Applications Teams to Ensure Applications are Working]
 ```
 
-### Reporting Incidents
+### Problem Management
 
-Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Threads should be used to organize the discussion of individual issues.
+Problems are the underlying cause of one or more incidents.  The cause of an incident is often unknown at the time the incident is reported.  The goal of problem management is to identify and eliminate the root cause to prevent future incidents.  
 
-| Slack Channel | Purpose | Slack User Group Handle |
-| ------------- | ------- | -------------------------- |
-| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | usdf-on-sky-help |
-| usdf-support | USDF user support channel. Intended for issues by end users  | usdf-help |
-| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | usdf-infra-help |
-| usdf-rsp-support | USDF Rubin Science Platform support | usdf-rsp-help |
+Anyone can identify a problem.  Application owners are responsible for defining problems for their application.  USDF is responsible for defining problems for USDF infrastructure.  Problem resolution prioritization is the responsibility of (to be added)
 
-An on call rotation will be created to monitor the above Slack channels during daytime working hours.  Note that Slack channels will not be monitored during nightime when there is observing because SLAC is not staffed for this.
+Jira supports problem management as part of Service Management.  It is proposed to manage problems in Jira.  A starting point would be to implement an incident and problem management Jira board as part of the commissioning daily stand ups.
 
-To avoid the same person being consistently asked to help even when they are not on call the Slack user group feature will be used to mention for assistance.  The user group handles are included in the above table.  How to setup Slack user groups is discussed [here](https://slack.com/help/articles/212906697-Create-a-user-group#:~:text=Create%20user%20groups%20to%20notify,notify%20everyone%20in%20the%20group.)
+### Monitoring and Event Management
 
-## Problem Management
+The USDF Grafana is used for monitoring and alerts.  Prometheus is the main source of application and infrastructure metrics.  Loki is used to capture logs from applications.   Below are are the requirements and design for monitoring and alerting.
 
-## Release Management
+* Alerts will be created for application errors and performance metrics.  Ideally application issues should be identified proactively by alerts and not by end users.  This will take time to implement.  As new issues are reporting by end users part of the remediation process will be to create alerts when there is missing coverage.
+* Application Alerts should be created in Grafana.  A Slack channel will be created for each application for these alerts.  Today all alerts goto `usdf-alerts`.    New Slack channels will be created for each application domain.  For example `usdf-alert-production-alerts`.  It is the responsibility of the Operations Support role in each team to monitor and respond to these alerts.
+* Application logs volumes should be reviewed to ensure they are not filling up log storage.  Debug level logs should only be enabled to troubleshoot issues.
+* Sensitive data such as passwords or secrets should not be logged.
+* A red/yellow/green stoplight dashboard is required to provide an at a glance view of the health of USDF applications.  Tags for each application domain will be added to Grafana to facilitate the aggregation of alerts into this dashboard.
+* Dashboards will be created for each application domain to provide a summary view of health, performance, and issues.
+* Squadcast will be available to provide alert management and route alerts.   <- Is there licensing for this?
 
-## Change Management
 
-There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.  The CAB should include membership from the Rubin Application Grouping Owners (or delegates) and USDF Infrastructure teams.
+### Change Management
+
+There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.  The CAB should include membership from the Rubin Application Group Owners (or delegates) and USDF Infrastructure teams.
 
 JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  It will require a change in workflow, but will reduce the manual questions that arise today about what changed and when.
 
@@ -267,7 +238,7 @@ Patch Thursday will be used to perform upgrades and patches. <-- Need to discuss
 ## Next Steps
 
 Below is a summary of the recommended next steps to implement the model.
-1. Implement Incident Management Process
+1. Implement Incident and Problem Management Process
     * Assign and activate on call rotation
     * Create Slack groups
     * Create Service Management board in Jira
