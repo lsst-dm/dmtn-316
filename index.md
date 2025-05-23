@@ -69,8 +69,8 @@ Below are the proposed application criticality levels.
 | Tier | Definition | Impact of Failure | Examples |
 | ---- | ---------- | ----------------- | -------- |
 | Mission Critical | Most important application. Essential for success of Rubin | Required process will not run | Embargo Butler, Prompt Processing, PanDa, Sasquatch |
-| Critical | Applications that are essential for day to day operations, but not as crucial as mission critical | Can cause significant delays, disruptions, or reduce productivity | ConsDB, Rubin Science Platform Nublado |
-| Operational | Applications that support science functions, but are not considered essential for the immediate functioning of work | May cause disruptions, but not major ones |  Exposurelog, RubinTV, LFA |
+| Critical | Applications that are essential for day to day operations,<br> but not as crucial as mission critical | Can cause significant delays, <br>disruptions, or reduce productivity | ConsDB, Rubin Science Platform Nublado |
+| Operational | Applications that support science functions, but are not<br> considered essential for the immediate functioning of work | May cause disruptions, <br>but not major ones |  Exposurelog, RubinTV, LFA |
 
 The tiers for applications will be identified as part of the operations checklist activities.  The application tiering can change over time and will change for some applications after commissioning.
 
@@ -185,6 +185,7 @@ flowchart LR;
     A[Slack Message]-->C[Determine Impact];
     B[Alert]-->C["`Determine Impact
     Open Incident in Jira
+    If High Impact Open Tech Bridge
     Communicate Issue in Slack`"];
     C --> D[Identify Fix];
     D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
@@ -198,6 +199,7 @@ flowchart LR;
     A[Slack Message]-->C[Determine Impact];
     B[Alert]-->C["`Determine Impact
     Open Incident in SNOW
+    If High Impact Open Tech Bridge
     Communicate Issue in Slack`"];
     C --> D[Identify Fix];
     D -- Requires Approval --> E[Obtain Approval.  Then apply fix];
