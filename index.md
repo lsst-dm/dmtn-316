@@ -1,9 +1,9 @@
-# USDF Rubin Application Operations Support Model
+# USDF Rubin Concept of Operations
 
 ```{abstract}
-Rubin depends on a large array of applications, services, and databases.  Collectively these will be referred to as services.  Many of these services are hosted at the United States Data Facility (USDF) run by the SLAC National Accelerator Laboratory.  The USDF is not staffed to to take over all operational responsibilities for all services.  The USDF must rely on service owners/operators for ongoing engagement during operations.  
+Rubin depends on a large array of applications, services, and databases.  Many of these services are hosted by the United States Data Facility (USDF) at the SLAC National Accelerator Laboratory.  
 
-Rubin and USDF need a standardized and sustainable Concept of Operations (ConOps) framework for developing, deploying, and supporting these services during operations.  The goals of this are to:
+The USDF is not staffed to to take over all operational responsibilities for all services.  The USDF must rely on service owners/operators for ongoing engagement during operations.  Rubin and USDF need a standardized and sustainable Concept of Operations (ConOps) framework for developing, deploying, and supporting these services during operations.  The goals of this are to:
 
 * Make the process straightforward for service owner/operators
 * Make the support load manageable for the USDF infrastructure team
@@ -11,41 +11,41 @@ Rubin and USDF need a standardized and sustainable Concept of Operations (ConOps
 * Provide visibility into changes
 * Enable better interaction with hardware planning, SLAC Cybersecurity, etc.
 
-This document introduces the ConOps for the Rubin applications at USDF.  This includes the Rubin and USDF roles, Service Management. This document does not detail the overall operations for the US DAC, Long Haul Network, or Summit.
+This tech note introduces the ConOps for the Rubin applications at USDF.  This includes the Rubin and USDF roles, Service Management. This does not detail the overall operations for the US DAC, Long Haul Network, or Summit.
 ```
 
 ## Separation of Responsibilities
 
-Service Owners are responsible for operational state of the the deployed application.  Service Owners will ensure runbooks and documentation is developed.  Operational Support roles will be created in the team to respond to stakeholder queries via Slack and alert USDF/SDF infrastructure staff of issues and needs.
+Application Owners are responsible for operational state of the the deployed application.  Service Owners will ensure runbooks and documentation are developed.  Operational Support roles will be created in the team to respond to stakeholder queries via Slack and alert USDF/SDF infrastructure staff of issues and needs.
 
-USDF Infrastructure staff is responsible for documenting a standard menu of services.  Currently includes Kubernetes, Storage, DNS, Network, Monitoring, Logging, and Databases.  The USDF will proactively monitoring infrastructure status and investigate issues.  They will respond to infrastructure issues and needs of the Service owners.
+USDF Infrastructure staff are responsible for documenting a standard menu of services.  Currently this includes Kubernetes, Storage, DNS, Network, Monitoring, Logging, and Databases.  The USDF will proactively monitoring infrastructure status and investigate issues.  They will respond to infrastructure issues and needs of the Service owners.
 
 There is an overlap of responsibilities with Rubin Science Platform, QServ, Cassandra, and Postgres. The below tables summarizes the shared responsibilities.
 
-| Service | Rubin | USDF | 
+| Service | Rubin Focus | USDF Focus | 
 | ---- | ----- | ---- |
 | Cassandra | | |
 | Phalanx/ArgoCD | | |
-| Postgres| Implementation and optimization of data model | Installation, upgrades, and monitoring.  Consult on database performance issues.  |
+| Postgres| Implementation and optimization of data model | Installation, upgrades, and monitoring.<br>  Consult on database performance issues.  |
 | Rubin Science Platform | |
 | Qserv | | |
 
 
-## Application Support Model
+## Rubin Application Support Model
 
-Below are details on the application support model for Rubin applications.  This model is used to define the roles, responsibilities, and priorities for support.
+Below are details on the application support model for Rubin Services.  This model is used to define the roles, responsibilities, and priorities for support.
 
 ### Application Roles
 
-Each Rubin application should have the following roles defined to manage and operate the application.  A person can have more than one role and may be condensed.  Below are the roles and responsibilities required for each role.
+Each Rubin application should have the following roles defined to manage and operate the application.  A person can hold more than one role.
 
 | Role | Responsibilities |
 | ---- | ---------------- |
 | Application Sponsor | Responsible for assigning resources |
 | Application Owner | Responsible for the overall application functionality, data, and user experience |
-| Database Administrator | Responsible the database’s design, performance, security, and maintenance.  Not required if there is no database |
+| Database Administrator | Responsible the database’s design, performance, security, and maintenance.<br>  Absent if no database. |
 | App Infrastructure | Responsible for the infrastructure configuration, deployment, and routine maintenance |
-| Operations Support | Responsible for the support of the application.  Handles alerts, application monitoring, application incident response |
+| Operations Support | Responsible for the support of the application.  <br>Handles alerts, application monitoring, application incident response |
 
 ### SLAC and Rubin Team Infrastructure Roles
 
@@ -54,7 +54,7 @@ Below are the roles and responsibilities for the SLAC and Rubin Infrastructure t
 | Role | Responsibilities |
 | ---- | ---------------- |
 | Infrastructure Services Support (Physical) | Responsible for physical datacenter, servers, storage, and networking.  This includes Weka and Ceph. |
-| Applications and Users (Virtual) | Responsible for the virtual infrastructure, Kubernetes cluster, vClusters and Kubernetes Weka Storage.  The DBA is on this team and is responsible for Butler and providing subject matter expertise to help the App DBAs. |
+| Applications and Users (Virtual) | Responsible for the virtual infrastructure, Kubernetes cluster, vClusters and Kubernetes Weka Storage.<br>The DBA is on this team and is responsible for Butler and providing subject matter expertise to help the App DBAs. |
 | Astro Domain / Rubin Specific | Understanding Science Operations, Teams, and Roles.  They may also be application owners. |
 
 ### Application Tiering
@@ -141,9 +141,9 @@ Slack channels in the Rubin Observatory Slack instance are used to report incide
 
 | Slack Channel | Purpose | Slack User Group Handle |
 | ------------- | ------- | -------------------------- |
-| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on (roughly) 12- to 48-hour timescales | usdf-on-sky-help |
+| usdf-on-sky-support | Channel for issues, questions, and support requests for USDF related to LSSTCam on-sky commissioning.<br>  Should be limited to issues that have an impact on decisions about commissioning activities at the summit on <br>(roughly) 12- to 48-hour timescales | usdf-on-sky-help |
 | usdf-support | USDF user support channel. Intended for issues by end users  | usdf-help |
-| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support issues related to USDF infrastructure | usdf-infra-help |
+| usdf-infra-support | USDF infrastructure support channel, i.e., intended for developers of USDF-hosted services to raise support <br>issues related to USDF infrastructure | usdf-infra-help |
 | usdf-rsp-support | USDF Rubin Science Platform support | usdf-rsp-help |
 
 An on call rotation will be created to monitor the above Slack channels during daytime working hours.  Note that Slack channels will not be monitored during nightime when there is observing because SLAC is not staffed for this.
