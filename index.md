@@ -88,14 +88,34 @@ There are over 50 Rubin applications installed at the USDF and the number is gro
 | Rubin Science Platform at USDF | Portal Notebooks, Notebooks, and Image API services used at the USDF | |
 | QA | Validation and Verification of Camera Options | Exposurelog, Consdb, Rubin TV | |
 
+Below is an example of an the Alert Production application group. The application group includes all the Alert Stream Applications as well as external dependencies from other Rubin applications and USDF infrastructure.  Please note that tiering will change and is only an illustrative example.  The remaining application groupings will be completed as part of the Operations Checklist activities.
+
+| Application | Type | Tier | Owner |
+| ----------- | ---- | ---- | ----- |
+| Next Visit Fan Out | Application | Mission Critical | Alert Production |
+| Prompt Processing | Application | Mission Critical | Alert Production |
+| KEDA | Application Infrastructure | Mission Critical | Alert Production |
+| Prompt Kafka | Application Infrastructure | Mission Critical | Alert Production |
+| Alert Stream Broker | Application | Mission Critical | Alert Production |
+| Sattle | Application | Mission Critical | Alert Production |
+| Sat db | Application | Mission Critical | Alert Production |
+| Cassandra | Application Infrastructure | Critical | Alert Production |
+| Minor Planet Survey Database | Application Infrastructure | Critical | Alert Production |
+| Embargo Butler | Application Infrastructure | Mission Critical | Middleware |
+| Embargo Storage | USDF | Mission Critical | USDF Infrastructure | USDF Infrastructure Services Support |
+| LHN | USDF | Mission Critical | Summit and USDF Infrastructure | USDF Infrastructure Services Support |
+| Internet | USDF | Mission Critical | USDF Infrastructure | USDF Infrastructure Services Support |
+
+
 ### Application Operations Checklist
 
 A checklist is developed to review and validate that an application is ready for operations.  This checklist will be completed by each application team.   Below is a summary of what is included in the Operations Checklist.
 
 * Application Support Model
   * Application roles, tier, production hours, and maintenance hours defined.
+  * Application grouping and dependency mapping
   * Review of staffing levels and sufficient staff to run and support application
-  * Runbook completed.  This includes common operational procedures, infrastructure dependencies, and other Rubin application dependencies
+  * Runbook completed
   * Concerns of open issues remediated
 * Release Management
   * Release management and application deployment process defined.  Dev and Production environments deployed.
@@ -110,7 +130,7 @@ A checklist is developed to review and validate that an application is ready for
  * Partitioning implemented for databases that will grow larger than supported by Postgres
  * Retries enabled for database connections
  * Database backups are running
- * Postgres Poolers created and in use.  Idle timeout set for Pooler.
+ * Postgres Database Poolers created and in use.  Idle timeout set.
 * Security
   * Any SLAC Cyber review and/or exceptions done
   * All secret in Vault.
