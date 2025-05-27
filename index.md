@@ -124,7 +124,7 @@ Current incident management processes uses Slack channels and a daily standup.  
 
 #### Reporting Incidents
 
-Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Threads should be used to organize the discussion of individual issues.
+Slack channels in the Rubin Observatory Slack instance are used to report incidents.  Below are the Slack channels, purpose of each, and who is responsible for monitoring the Slack channel.  Please note that new support channels will be created for each application <---discuss.  Threads should be used to organize the discussion of individual issues.
 
 | Slack Channel | Purpose | Slack User Group Handle |
 | ------------- | ------- | -------------------------- |
