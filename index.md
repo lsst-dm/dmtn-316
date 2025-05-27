@@ -30,7 +30,6 @@ There is an overlap of responsibilities with Rubin Science Platform, QServ, Cass
 | Rubin Science Platform | |
 | Qserv | | |
 
-
 ## Rubin Application Support Model
 
 Below are details on the application support model for Rubin Services.  This model is used to define the roles, responsibilities, and priorities for support.
@@ -105,38 +104,6 @@ Below is an example of an the Alert Production application group. The applicatio
 | Embargo Storage | USDF | Mission Critical | USDF Infrastructure | USDF Infrastructure Services Support |
 | LHN | USDF | Mission Critical | Summit and USDF Infrastructure | USDF Infrastructure Services Support |
 | Internet | USDF | Mission Critical | USDF Infrastructure | USDF Infrastructure Services Support |
-
-
-### Application Operations Checklist
-
-A checklist is developed to review and validate that an application is ready for operations.  This checklist will be completed by each application team.   Below is a summary of what is included in the Operations Checklist.
-
-* Application Support Model
-  * Application roles, tier, production hours, and maintenance hours defined.
-  * Application grouping and dependency mapping
-  * Review of staffing levels and sufficient staff to run and support application
-  * Runbook completed
-  * Concerns of open issues remediated
-* Release Management
-  * Release management and application deployment process defined.  Dev and Production environments deployed.
-  * Code in Rubin or SLAC GitHub.  Container images stored in LSST GitHub packages.
-  * Upgrade process defined for any Kubernetes Operators in use
-* Infrastructure
-  * High availability configuration
-  * IP Address allocated from `sdf-ingest` pool.  No hard coded IP addresses and use of DNS entries.
-  * Unused configuration removed
-  * Kubernetes Resource requests implemented
-* Database 
- * Partitioning implemented for databases that will grow larger than supported by Postgres
- * Retries enabled for database connections
- * Database backups are running
- * Postgres Database Poolers created and in use.  Idle timeout set.
-* Security
-  * Any SLAC Cyber review and/or exceptions done
-  * All secret in Vault.
-  * Administrative access to the application using SLAC credentials
-  * Embargo annotations and affinity rules deployed if applicable
-  * Patch process defined to update application libraries in the the Runbook
 
 ## Service Management
 
@@ -250,23 +217,71 @@ The USDF Grafana is used for monitoring and alerts.  Prometheus is the main sour
 * Dashboards will be created for each application domain to provide a summary view of health, performance, and issues.
 * Squadcast will be available to provide alert management and route alerts.   <- Is there licensing for this?
 
+### Release Management
+
+Release management is a practice focused on the planning, testing, coordinating, and deployment of applications and infrastructure components.  It is not the scope of this tech note to define a release management process for Rubin. This tech note, however, defines the requirements for Rubin applications as follows.
+
+* A Release Management approach is required.  There needs to be the ability to identify the software deployed back to a git tag.  This is needed to both deploy and restore an application.  [GitHub releases](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) is used by some Rubin Github repositories.
+* Release notes should be defined a summary of the release, what changed, and any known incompatibilities such as with schemas or middleware versions.  
+* Change Management is discussed in a subsequent section.  To automate the creation of change records a GitHub action step can be added to automatically create a change record in Jira.
+
+For infrastructure releases:  <---Discuss
+
+### Deployment Management
+
+Deployment management is the practice of deploying an application of infrastructure component.  Below are the requirements for deployment management.
+* A dev environment is required for each application.  
+* Test in lower environment before deploying to production.
+* If external helm charts are used the helm version needs to be tagged in Phalanx or in the build files.  A suitable alternative is to template the helm chart into the GitHub repository.
+* Patches to running Kubernetes configuration via `kubectl edit` or `kubectl patch` should only be done if needed during an emergency.  All configuration should be stored in Github so that the application can be redeployed.
+
+<-- add discussion phalanx
 
 ### Change Management
 
 There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.  The CAB should include membership from the Rubin Application Group Owners (or delegates) and USDF Infrastructure teams.
 
-JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continuous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  A phased implementation is recommended to not slow down work.  Below is the recommended phasing.
-
-1. Create Change Advisory Board
-1. Identify which infrastructure and applications to focus on first for Change Management deployment
-1. Setup Jira Change Management Workflow
-1. Phased rollout of Change Management.  This could be aligned with application Operational Checklist review
+JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continuous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  A phased implementation is recommended to not slow down work.  The process is detailed in the Next Steps section at the end of this tech note.  Below is the recommended phasing.
 
 Patch Thursday will be used to perform upgrades and patches. <-- Need to discuss is there is an allowed downtime window.
 
 ## Next Steps
 
+### Application Operations Checklist
+
+As part of production readiness each Application will complete an Application Operations Checklist.  Below is what is included in this checklist.
+
+* Application Support Model
+  * Application roles, tier, production hours, and maintenance hours defined.
+  * Application grouping and dependency mapping
+  * Review of staffing levels and sufficient staff to run and support application
+  * Runbook completed
+  * Concerns of open issues remediated
+* Release Management
+  * Release management and application deployment process defined.  Dev and Production environments deployed.
+  * Code in Rubin or SLAC GitHub.  Container images stored in LSST GitHub packages.
+  * Upgrade process defined for any Kubernetes Operators in use
+* Infrastructure
+  * High availability configuration
+  * IP Address allocated from `sdf-ingest` pool.  No hard coded IP addresses and use of DNS entries.
+  * Unused configuration removed
+  * Kubernetes Resource requests implemented
+* Database 
+ * Partitioning implemented for databases that will grow larger than supported by Postgres
+ * Retries enabled for database connections
+ * Database backups are running
+ * Postgres Database Poolers created and in use.  Idle timeout set.
+* Security
+  * Any SLAC Cyber review and/or exceptions done
+  * All secret in Vault.
+  * Administrative access to the application using SLAC credentials
+  * Embargo annotations and affinity rules deployed if applicable
+  * Patch process defined to update application libraries in the the Runbook
+
+### Implementation Steps
+
 Below is a summary of the recommended next steps to implement the model.
+
 1. Implement Incident and Problem Management Process
     * Assign and activate on call rotation
     * Create Slack groups
@@ -281,6 +296,8 @@ Below is a summary of the recommended next steps to implement the model.
         * Assign remaining application roles
 1. Implement Change Management Process
     * Create Change Advisory Board and assign members
-    * Setup Jira for Change Management
+    * Identify which infrastructure and applications to focus on first for Change Management deployment
+    * Identify standard chagnes
+    * Setup Jira for Change Management with workflows and boards
     * Train team on responsibilities
-    * Implement process
+    * Implement process.  Phased rollout of Change Management.  This could be aligned with application Operational Checklist review
