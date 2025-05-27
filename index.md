@@ -11,7 +11,7 @@ The USDF is not staffed to to take over all operational responsibilities for all
 * Provide visibility into changes
 * Enable better interaction with hardware planning, SLAC Cybersecurity, etc.
 
-This tech note introduces the ConOps for the Rubin applications at USDF.  This includes the Rubin and USDF roles, Service Management. This does not detail the overall operations for the US DAC, Long Haul Network, or Summit.
+This tech note introduces the ConOps model for the Rubin applications at USDF.  This includes the Rubin and USDF roles, Service Management. This does not detail the overall operations for the US DAC, Long Haul Network, or Summit.
 ```
 
 ## Separation of Responsibilities
@@ -37,7 +37,7 @@ Below are details on the application support model for Rubin Services.  This mod
 
 ### Application Roles
 
-Each Rubin application should have the following roles defined to manage and operate the application.  A person can hold more than one role.
+Each Rubin application will have the following roles defined to manage and operate the application.  A person can hold more than one role.
 
 | Role | Responsibilities |
 | ---- | ---------------- |
@@ -165,6 +165,8 @@ Below are the impact levels that will be used to prioritize incident response.  
 
 #### Incident Management Process
 
+The following sections detail the incident management process.  Please note a new introduction to the incident management workflow is the creation of a tech bridges for High Impact issues.  The tech bridge is to gather all stakeholders and facilitate the decisions needed to resolve the issue. 
+
 Below is the incident management process for incidents when it is unknown if it is an application or infrastructure issue.
 
 Initial incident triage to determine who needs to be involved needs to be based not just on which area caused the incident, but which teams need to be involved to fully recover from the Incident.
@@ -233,7 +235,12 @@ The USDF Grafana is used for monitoring and alerts.  Prometheus is the main sour
 
 There are dependencies between Rubin Applications and Infrastructure.  A current challenge is visibility into when changes are happening and the impact of the change.  A Change Advisory Board (CAB) is proposed to be created to review and approve changes.  CAB should have visibility to all changes, but some should be `standard` changes that are pre-approved based on the the change being considered a routine change.  Changes have to be proposed as `standard` and go through an initial CAB evaluation and approval process to be categorized as such, then can flow through next time.  If a `standard` change ever results in an Incident, then that type of change can no longer be considered `standard`.  The CAB should include membership from the Rubin Application Group Owners (or delegates) and USDF Infrastructure teams.
 
-JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  It will require a change in workflow, but will reduce the manual questions that arise today about what changed and when.
+JIRA supports [Change Management](https://www.atlassian.com/software/jira/service-management/product-guide/getting-started/change-management#how-it-works) with request approval workflows.  It supports the concept of `standard` changes do not require approval.  GitHub integration is available to open changes directly from GitHub Actions as part of continuous integration (CI) workflow.  It is proposed that both Rubin and SLAC use Jira for change management.  A phased implementation is recommended to not slow down work.  Below is the recommended phasing.
+
+1. Create Change Advisory Board
+1. Identify which infrastructure and applications to focus on first for Change Management deployment
+1. Setup Jira Change Management Workflow
+1. Phased rollout of Change Management.  This could be aligned with application Operational Checklist review
 
 Patch Thursday will be used to perform upgrades and patches. <-- Need to discuss is there is an allowed downtime window.
 
